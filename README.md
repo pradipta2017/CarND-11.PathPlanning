@@ -1,16 +1,36 @@
 # CarND-Path-Planning-Project
-Self-Driving Car Engineer Nanodegree Program
-   
-### Simulator.
-You can download the Term3 Simulator which contains the Path Planning Project from the [releases tab (https://github.com/udacity/self-driving-car-sim/releases).
 
 ### Goals
 In this project your goal is to safely navigate around a virtual highway with other traffic that is driving +-10 MPH of the 50 MPH speed limit. You will be provided the car's localization and sensor fusion data, there is also a sparse map list of waypoints around the highway. The car should try to go as close as possible to the 50 MPH speed limit, which means passing slower traffic when possible, note that other cars will try to change lanes too. The car should avoid hitting other cars at all cost as well as driving inside of the marked road lanes at all times, unless going from one lane to another. The car should be able to make one complete loop around the 6946m highway. Since the car is trying to go 50 MPH, it should take a little over 5 minutes to complete 1 loop. Also the car should not experience total acceleration over 10 m/s^2 and jerk that is greater than 50 m/s^3.
 
-#### The map of the highway is in data/highway_map.txt
+
+#### The map of the highway is in data/highway_map.csv
 Each waypoint in the list contains  [x,y,s,dx,dy] values. x and y are the waypoint's map coordinate position, the s value is the distance along the road to get to that waypoint in meters, the dx and dy values define the unit normal vector pointing outward of the highway loop.
 
 The highway's waypoints loop around so the frenet s value, distance along the road, goes from 0 to 6945.554.
+
+### Solution/Approach:
+1. Load the waypoints from data/highway_map.csv, so that we can build the path of the car at the beginning.
+2. Get the ego/main car's localization data, including sensor_fusion which contains data of other cars.
+3. Build some close by points(in my case, it is 10) from the map waypoints at an increment of distance 0.5.
+4. Get the previous path points. At starting point, there will be no path points. When there is no previous path points, get the previous car x/y points by deriving from current x/y and car's current angle. When, there are previous path points, get the car's x/y from previous path points. Also determine velocity and acceleration from the previous x/y points. 
+5. Making the predictions: Go through sensor fusion data and determine the position of all other cars at certain horizon.
+6. Determine the available state(whether car can Keep Lane, or change Left or Right) of the ego car. For each state,
+   a. determine the target state(position and velocity)
+   b. determine the possible trajectories for the target state. I have used JMT to determine the coefficients to build the trajectories.
+   c. build a set of cost functions to determine the best target state.
+7. Cost Functions:
+   a. Collision cost: Determine nearest other cars from the possible trajectories and the predictions. If there is any vehicle detected for collision, return a cost which penalize the target the most.
+   b. Buffer cost: Return a cost if the target position is close to any car in any lane.
+   c. In lane buffer cost: Return a cost if the target position is close to the car ahead of it.
+   d. Efficiency cost: Return a cost for slower velocity, so that we can maintain high average velocity.
+   e. Lane change cost: Return a cost if lane change is not required.
+   f. Right lane cost: Return a cost to stay in the right lane, so that we can avoid staying the right lane and move faster.
+8. Once we determine the best target, get 2 points(30 and 60 points apart) to prepare/set for the spline points.
+9. Get the next few points by increasing/decreasing the velocity based on the ego car velocity.
+10. Using spline, interpolate the next path projection points and add them to the existing path points.
+
+#--------------------------------------------------------------------------------------------------------------------------
 
 ## Basic Build Instructions
 
