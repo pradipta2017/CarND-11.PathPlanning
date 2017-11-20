@@ -20,12 +20,12 @@ The highway's waypoints loop around so the frenet s value, distance along the ro
    * determine the possible trajectories for the target state. I have used JMT to determine the coefficients to build the trajectories.
    * build a set of cost functions to determine the best target state.
 7. Cost Functions:
-   * *Collision cost:* Determine nearest other cars from the possible trajectories and the predictions. If there is any vehicle detected for collision, return a cost which penalize the target the most.
-   * *Buffer cost:* Return a cost if the target position is close to any car in any lane.
-   * *In lane buffer cost:* Return a cost if the target position is close to the car ahead of it.
-   * *Efficiency cost:* Return a cost for slower velocity, so that we can maintain high average velocity.
-   * *Lane change cost:* Return a cost if lane change is not required.
-   * *Right lane cost:* Return a cost to stay in the right lane, so that we can avoid staying the right lane and move faster.
+   * **Collision cost:** Determine nearest other cars from the possible trajectories and the predictions. If there is any vehicle detected for collision, return a cost which penalize the target the most.
+   * **Buffer cost:** Return a cost if the target position is close to any car in any lane.
+   * **In lane buffer cost:** Return a cost if the target position is close to the car ahead of it.
+   * **Efficiency cost:** Return a cost for slower velocity, so that we can maintain high average velocity.
+   * **Lane change cost:** Return a cost if lane change is not required.
+   * **Right lane cost:** Return a cost to stay in the right lane, so that we can avoid staying the right lane and move faster.
 8. Once we determine the best target, get 2 points(30 and 60 points apart) to prepare/set for the spline points.
 9. Get the next few points by increasing/decreasing the velocity based on the ego car velocity.
 10. Using spline, interpolate the next path projection points and add them to the existing path points.
