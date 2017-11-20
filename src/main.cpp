@@ -10,13 +10,14 @@
 #include "Eigen-3.3/Eigen/QR"
 #include "json.hpp"
 #include "Helpers.h"
+//#include "vehicle.cpp"
 #include "vehicle.h"
 #include "CostFunctions.hpp"
 
 
-#ifndef M_PI
-#define M_PI (3.14159265358979323846)
-#endif
+//#ifndef M_PI
+//#define M_PI (3.14159265358979323846)
+//#endif
 
 using namespace std;
 using Eigen::ArrayXd;
@@ -25,7 +26,8 @@ using Eigen::ArrayXd;
 using json = nlohmann::json;
 
 // For converting back and forth between radians and degrees.
-constexpr double pi() { return M_PI; }
+//constexpr double pi() { return M_PI; }
+constexpr double pi() { return 22/7; }
 double deg2rad(double x) { return x * pi() / 180; }
 double rad2deg(double x) { return x * 180 / pi(); }
 
@@ -364,14 +366,14 @@ int main() {
 						s_points.push_back(prev_s);
 						s_points.push_back(ego_s);
 					}		
-
+					
 					ego_car.s    = ego_s;           
 					ego_car.s_d  = ego_s_dot;           
 					ego_car.s_dd = ego_s_ddot;          
 					ego_car.d    = ego_d;           
 					ego_car.d_d  = ego_d_dot;           
 					ego_car.d_dd = ego_d_ddot;          
-
+					
 
 					// ********************* GENERATE PREDICTIONS FROM SENSOR FUSION DATA [ id, x, y, vx, vy, s, d] **************************
 					double goal_t = HORIZON - prev_path_size * EACH_POINT_TIME;
@@ -410,7 +412,7 @@ int main() {
 							}
 						}
 					}
-
+					
 
 					int my_lane = (int)ego_car.d / 4;
 					ego_car.available_states = { "KL" };
@@ -428,11 +430,12 @@ int main() {
 					else if (my_lane == 2 && (car_to_left == false)) {
 						ego_car.available_states.push_back("LCL");
 					}
-
+					
 					vector<vector<double>> best_trajectory ;
 					ArrayXd best_target(6);
 					double best_cost = 999999;
 					string best_traj_state = "";
+					
 					for (string state: ego_car.available_states) {
 						ArrayXd target_state = ego_car.get_target_for_state(state, predictions, goal_t);
 						vector<vector<double>> possible_traj = ego_car.generate_traj_for_target(target_state, goal_t);
@@ -446,7 +449,7 @@ int main() {
 								best_target = target_state;
 						}
 					}
-
+					
 					// emergency break
 					if (car_just_ahead) { 
 						best_target[1] = 0.0; 
