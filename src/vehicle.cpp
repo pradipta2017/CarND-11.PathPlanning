@@ -1,6 +1,3 @@
-#include "vehicle.h"
-#include "constants.h"
-
 #include <iostream>
 #include <sstream>
 #include <fstream>
@@ -11,9 +8,14 @@
 #include "Eigen-3.3/Eigen/Core"
 #include "Eigen-3.3/Eigen/QR"
 #include "Eigen-3.3/Eigen/LU"
+#include "vehicle.h"
+#include "constants.h"
 
+using Eigen::ArrayXd;
+using Eigen::Array3d;
+using Eigen::MatrixXd;
 
-
+using namespace std;
 
 /**
  * Initializes Vehicle
