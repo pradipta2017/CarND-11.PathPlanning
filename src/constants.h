@@ -1,3 +1,6 @@
+#ifndef CONSTANTS
+#define CONSTANTS
+
 const int N_SAMPLES = 20;
 const int MIN_PATH_SIZE = 25;
 const int HORIZON = 4;
@@ -23,3 +26,5 @@ const double IN_LANE_BUFFER_COST_WEIGHT = 1000;
 const double EFFICIENCY_COST_WEIGHT = 10000;
 const double D_DIFF_COST_WEIGHT = 500;
 const double RIGHT_LANE_COST_WEIGHT = 100;
+
+#endif
