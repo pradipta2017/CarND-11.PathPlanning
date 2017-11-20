@@ -20,7 +20,7 @@ The highway's waypoints loop around so the frenet s value, distance along the ro
    * determine the possible trajectories for the target state. I have used JMT to determine the coefficients to build the trajectories.
    * build a set of cost functions to determine the best target state.
 7. Cost Functions:
-   * **Collision cost:** Determine nearest other cars from the possible trajectories and the predictions. If there is any vehicle detected for collision, return a cost which penalize the target the most.
+   * __Collision cost:__ Determine nearest other cars from the possible trajectories and the predictions. If there is any vehicle detected for collision, return a cost which penalize the target the most.
    * **Buffer cost:** Return a cost if the target position is close to any car in any lane.
    * **In lane buffer cost:** Return a cost if the target position is close to the car ahead of it.
    * **Efficiency cost:** Return a cost for slower velocity, so that we can maintain high average velocity.
