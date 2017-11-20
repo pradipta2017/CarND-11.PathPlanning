@@ -1,6 +1,3 @@
-#ifndef COSTS
-#define COSTS
-
 #include <vector>
 #include <map>
 #include <algorithm>
@@ -140,5 +137,3 @@ double calculate_total_cost(vector<double> s_traj, vector<double> d_traj, ArrayX
 	total_cost = cost_collision + cost_buffer + cost_effciency + cost_d_diff + cost_right_lane ;
 	return total_cost;
 }
-
-#endif

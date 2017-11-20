@@ -1,5 +1,3 @@
-#pragma once
-
 const int N_SAMPLES = 20;
 const int MIN_PATH_SIZE = 25;
 const int HORIZON = 4;

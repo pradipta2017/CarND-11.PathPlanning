@@ -1,5 +1,3 @@
-#pragma once
-#pragma once
 #include <vector>
 #include "spline.h"
 
