@@ -16,21 +16,20 @@ The highway's waypoints loop around so the frenet s value, distance along the ro
 4. Get the previous path points. At starting point, there will be no path points. When there is no previous path points, get the previous car x/y points by deriving from current x/y and car's current angle. When, there are previous path points, get the car's x/y from previous path points. Also determine velocity and acceleration from the previous x/y points. 
 5. Making the predictions: Go through sensor fusion data and determine the position of all other cars at certain horizon.
 6. Determine the available state(whether car can Keep Lane, or change Left or Right) of the ego car. For each state,
-   a. determine the target state(position and velocity)
-   b. determine the possible trajectories for the target state. I have used JMT to determine the coefficients to build the trajectories.
-   c. build a set of cost functions to determine the best target state.
+   * determine the target state(position and velocity)
+   * determine the possible trajectories for the target state. I have used JMT to determine the coefficients to build the trajectories.
+   * build a set of cost functions to determine the best target state.
 7. Cost Functions:
-   a. Collision cost: Determine nearest other cars from the possible trajectories and the predictions. If there is any vehicle detected for collision, return a cost which penalize the target the most.
-   b. Buffer cost: Return a cost if the target position is close to any car in any lane.
-   c. In lane buffer cost: Return a cost if the target position is close to the car ahead of it.
-   d. Efficiency cost: Return a cost for slower velocity, so that we can maintain high average velocity.
-   e. Lane change cost: Return a cost if lane change is not required.
-   f. Right lane cost: Return a cost to stay in the right lane, so that we can avoid staying the right lane and move faster.
+   * Collision cost: Determine nearest other cars from the possible trajectories and the predictions. If there is any vehicle detected for collision, return a cost which penalize the target the most.
+   * Buffer cost: Return a cost if the target position is close to any car in any lane.
+   * In lane buffer cost: Return a cost if the target position is close to the car ahead of it.
+   * Efficiency cost: Return a cost for slower velocity, so that we can maintain high average velocity.
+   * Lane change cost: Return a cost if lane change is not required.
+   * Right lane cost: Return a cost to stay in the right lane, so that we can avoid staying the right lane and move faster.
 8. Once we determine the best target, get 2 points(30 and 60 points apart) to prepare/set for the spline points.
 9. Get the next few points by increasing/decreasing the velocity based on the ego car velocity.
 10. Using spline, interpolate the next path projection points and add them to the existing path points.
 
-#--------------------------------------------------------------------------------------------------------------------------
 
 ## Basic Build Instructions
 
