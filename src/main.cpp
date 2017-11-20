@@ -10,8 +10,8 @@
 #include "Eigen-3.3/Eigen/QR"
 #include "json.hpp"
 #include "Helpers.h"
-//#include "vehicle.cpp"
-#include "vehicle.h"
+#include "vehicle.cpp"
+//#include "vehicle.h"
 #include "CostFunctions.hpp"
 
 
